@@ -1,0 +1,52 @@
+prefix: "[SW-WARP]  "
+
+#Message à la creation du warp
+warp-created: "Votre warp a bien été créer"
+
+warp-deleted: "Votre warp a bien été effacer"
+
+blacklist-add: " a été ajouté à la Blacklist"
+
+blacklist-remove: " a été retiré de la Blacklist"
+
+blacklist-message: "Vous avez été blacklisté de ce warp, vous ne pouvez pas y accéder"
+
+############################ Help
+
+line: "----------- SW-WARP -----------"
+
+help-message: "/help - Permets de voir ce message"
+
+warp-create-message: "/warp create [nom] - Permets de créer un warp (5000 éclats d'or)"
+
+warp-add-blacklist: "/warp blacklist [nom] - Permets d'ajouter/retirer un joueur de la blacklist"
+
+warp-tp-message: "/warp [nom] - Permets de se téléporter au warp"
+
+warp-list-message: "/warp liste - Permets de voir la liste des warp"
+
+warp-delete-message: "/warp delete - Efface votre warp"
+
+
+############################ Erreurs
+
+#Le joueur n'as pas assez d'argent
+error-money: "Vous n'avez pas assez d'argent, il vous faut 5000 éclats d'or pour créer un warp"
+
+#Le nom du warp contient des caractéres non accéptés
+error-name: "Merci de ne pas mettre de caractères spéciaux dans le nom"
+
+#Le warp n'est pas créer dans le bon monde
+error-world: "Vous ne pouvez créer un warp que dans la map survie"
+
+#Le joueur a dépassé le maxmimum de warps
+error-max-warp: "Vous ne pouvez avoir qu'un seul warp"
+
+#Le nom est trop ou pas assez long
+error-name-length: "Votre nom de warp doit être entre 2 et 16 caractères"
+
+#Commande executée par autrechose qu'un joueur
+error-isconsole: "Commande dédiée aux joueurs"
+
+
+error-warp-already-exist: "Un warp existe déjà à ce nom"

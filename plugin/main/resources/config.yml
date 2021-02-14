@@ -1,0 +1,12 @@
+warp-cost: 5000
+
+language: "french"
+
+#Maximum de warps par personne
+max-warps: 1
+
+warp-name-regex: "[[a-zA-Z\\u00C0-\\u024F\\u1E00-\\u1EFF]|[0-9]]*"
+
+#Nom du warp
+max-length: 16
+min-length: 2
