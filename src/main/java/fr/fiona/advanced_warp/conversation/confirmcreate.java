@@ -23,13 +23,12 @@ public class confirmcreate extends StringPrompt {
     @Override
     public String getPromptText(ConversationContext context) {
        // player.sendRawMessage("test3");
-        return "Etes vous sur de vouloir créer un warp pour 5000 éclats d'or ? (Oui/Non)";
+        return Advanced_warp.getInstance().language.getLanguageConfig().getString("confirm-create");
     }
 
     @Override
     public Prompt acceptInput(ConversationContext context, String input) {
-       // player.sendRawMessage("test4");
-        if(input.equalsIgnoreCase("oui"))
+        if(input.equalsIgnoreCase(Advanced_warp.getInstance().language.getLanguageConfig().getString("yes-message")))
         {
 
             Warputils.CreateWarp(player,name);

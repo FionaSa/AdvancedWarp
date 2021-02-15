@@ -1,3 +1,5 @@
+
+####Cout d'un warp
 warp-cost: 5000
 
 language: "french"
@@ -6,6 +8,10 @@ language: "french"
 max-warps: 1
 
 warp-name-regex: "[[a-zA-Z\\u00C0-\\u024F\\u1E00-\\u1EFF]|[0-9]]*"
+
+
+#### Nom des mondes où vous pouvez créer des warps
+world: [world,Stratos]
 
 #Nom du warp
 max-length: 16

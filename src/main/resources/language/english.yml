@@ -1,0 +1,88 @@
+prefix: "[SW-WARP]"
+
+previous: "Previous"
+
+next: "Next"
+
+nobody: "Nobody"
+
+no-message: "No"
+
+
+yes-message: "Yes"
+
+#Message at warp creation
+warp-created: "Your warp has been created"
+
+warp-deleted: "Your warp has been deleted"
+
+blacklist-add: " has been added to the Blacklist"
+
+blacklist-remove: " has been removed from the Blacklist "
+
+blacklist-message: "You have been blacklisted from this warp, you can't access it"
+
+confirm-create: "Are you sure you want to create a warp for 5000 pieces of gold ? (Yes/No)"
+
+############################ Warp menu
+
+menu-warp-name: "Warps menu"
+
+name-howtocreate-warp: "How do I create a warp?"
+
+message-command-createwarp: "/warp create [name]"
+
+message-price-createwarp: "(!) The creation costs 5000 pieces of gold"
+
+count-visitors: " ist visitor"
+
+message-position: "* Position = "
+
+message-owner: "* Last visitor: "
+
+message-blacklist: "* Blacklisted : "
+
+############################ Help
+
+line: "----------- SW-WARP -----------"
+
+help-message: "/help - Allow to see this message"
+
+warp-create-message: "/warp create [name] - Allows to create a warp (5000 gold chips)"
+
+warp-add-blacklist: "/warp blacklist [warp_name] [player_name] - Allows to add/remove a player from the blacklist"
+
+warp-tp-message: "/warp [name] - Allows to teleport to warp"
+
+warp-list-message: "/warp list - Allows to see warp list"
+
+warp-delete-message: "/warp delete [name] - Delete your warp"
+
+
+############################ Errors
+
+#The player doesn't have enough money
+error-money: "You don't have enough money, you need 5000 pieces of gold to create a warp"
+
+#The warp name contains non-accented characters
+error-name: "Please do not put special characters in the name"
+
+#The warp is not created in the right world
+error-world: "You can only create a warp in the survival map"
+
+#The player has exceeded the warps maximum
+error-max-warp: "You can have only one warp"
+
+#The name is too long or not long enough
+error-name-length: "Your warp name must be between 2 and 16 characters long"
+
+#Command executed by something other than a player
+error-isconsole: "Command dedicated to players"
+
+
+error-warp-already-exist: "A warp already exists with this name"
+
+error-warp-delete: "This warp does not exist or you are not the owner"
+
+error-blacklist-player: "This warp does not exist or you are not the owner"
+

@@ -1,5 +1,0 @@
-name: Advanced_warp
-version: ${project.version}
-main: fr.fiona.advanced_warp.Advanced_warp
-api-version: 1.16
-depend: [Vault]

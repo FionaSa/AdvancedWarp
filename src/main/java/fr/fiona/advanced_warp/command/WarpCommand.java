@@ -30,13 +30,15 @@ public class WarpCommand extends BaseCommand {
     private GuiItem  add;
     ConversationFactory factory;
 
+    Advanced_warp advancedWarp;
+
     public WarpCommand(Advanced_warp advanced_warp){
+        advancedWarp = advanced_warp;
         factory = new ConversationFactory(advanced_warp);
     }
 
     @Default
-    @Syntax("[nomwarp]")
-    @CommandCompletion("@nomwarp")
+    @Syntax("[warp]")
     public void Teleport_warp(CommandSender sender,String name){
         Player p = (Player)sender;
       for(Warp w:Warputils.warps){
@@ -58,51 +60,57 @@ public class WarpCommand extends BaseCommand {
 
     }
     @Subcommand("blacklist")
+    @Syntax("[warp]")
     @CommandCompletion("@players")
-    public void Blacklist_warp(CommandSender sender,String name){
+    @CommandPermission("advancedwarp.blacklist")
+    public void Blacklist_warp(CommandSender sender,String nomwarp,String name){
         Player p = (Player)sender;
         for(Warp w:Warputils.warps){
-            if(w.getOwner() == p)
+            if((w.getOwner() == p) && ( w.getName().equalsIgnoreCase(nomwarp)))
+            {
                 w.addBlackList((Player)sender,name);
+                return;
+            }
         }
+        sender.sendMessage(Advanced_warp.getInstance().language.getLanguageConfig().getString("error-blacklist-player"));
 
     }
 
     @Subcommand("list|liste")
     public void ListWarp(CommandSender sender) {
         Player p = (Player) sender;
-        PaginatedGui gui = new PaginatedGui(6, "Menu de Warp");
-        gui.setItem(6, 3, ItemBuilder.from(Material.PAPER).setName(ChatColor.GREEN+"Précédent").asGuiItem(event -> gui.previous()));
+        PaginatedGui gui = new PaginatedGui(6, Advanced_warp.getInstance().language.getLanguageConfig().getString("menu-warp-name") );
+        gui.setItem(6, 3, ItemBuilder.from(Material.PAPER).setName(ChatColor.GREEN+Advanced_warp.getInstance().language.getLanguageConfig().getString("previous")).asGuiItem(event -> gui.previous()));
 
         gui.setItem(6, 1, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
         gui.setItem(6, 2, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
-        gui.setItem(6, 5, ItemBuilder.from(Material.NETHER_STAR).setName(ChatColor.AQUA+"Comment créer un warp ?").setLore(ChatColor.AQUA+" ",ChatColor.AQUA+"/warp create [nom]"," ",ChatColor.RED+"(!) La création coute 5000 éclats d'or").asGuiItem());
+        gui.setItem(6, 5, ItemBuilder.from(Material.NETHER_STAR).setName(ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("name-howtocreate-warp")).setLore(ChatColor.AQUA+" ",ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("message-command-createwarp")," ",ChatColor.RED+Advanced_warp.getInstance().language.getLanguageConfig().getString("message-price-createwarp")).asGuiItem());
         gui.setItem(6, 4, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
         gui.setItem(6, 6, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
         gui.setItem(6, 8, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
         gui.setItem(6, 9, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
 
-        gui.setItem(6, 7, ItemBuilder.from(Material.PAPER).setName(ChatColor.GREEN+"Suivant").asGuiItem(event -> gui.next()));
+        gui.setItem(6, 7, ItemBuilder.from(Material.PAPER).setName(ChatColor.GREEN+Advanced_warp.getInstance().language.getLanguageConfig().getString("next")).asGuiItem(event -> gui.next()));
 
        //ArrayList<String> warps = new ArrayList<>();
 
         //Bukkit.broadcastMessage(String.valueOf(Warputils.warps.size()));
 
         for (Warp w : Warputils.warps) {
-            String visiteur = "Personne";
-            String blacklist= ChatColor.AQUA+ "Non";
+            String visiteur = Advanced_warp.getInstance().language.getLanguageConfig().getString("nobody");
+            String blacklist= ChatColor.AQUA+ Advanced_warp.getInstance().language.getLanguageConfig().getString("no-message");
 
            // Bukkit.broadcastMessage(String.valueOf(w.getVisitors().size()));
             if(w.getCountVisit()!=0)
-                visiteur = w.getVisitors().get(w.getVisitors().size()-1)+ ", "+w.getCountVisit()+" iéme visiteur";
+                visiteur = w.getVisitors().get(w.getVisitors().size()-1)+ ", "+w.getCountVisit()+Advanced_warp.getInstance().language.getLanguageConfig().getString("count-visitors");
 
             if(w.getBlackList().contains(p.getName()))
-                 blacklist = ChatColor.RED +"Oui";
+                 blacklist = ChatColor.RED +Advanced_warp.getInstance().language.getLanguageConfig().getString("yes-message");
 
 
 
 
-            add = ItemBuilder.from(Material.PAPER).setName(ChatColor.BLUE +w.getName()).setLore(ChatColor.AQUA + "* Position = " + w.getLocation().getBlockX() + "x  " + w.getLocation().getBlockY() + "y  " + w.getLocation().getBlockZ() + "z",ChatColor.AQUA +"* Propriétaire = "+w.getOwner().getName(),ChatColor.AQUA + "* Dernier visiteur : ",ChatColor.BLUE+"   "+visiteur +" ",ChatColor.AQUA + "* Blacklisté : "+blacklist).asGuiItem(event -> {
+            add = ItemBuilder.from(Material.PAPER).setName(ChatColor.BLUE +w.getName()).setLore(ChatColor.AQUA + Advanced_warp.getInstance().language.getLanguageConfig().getString("message-position") + w.getLocation().getBlockX() + "x  " + w.getLocation().getBlockY() + "y  " + w.getLocation().getBlockZ() + "z",ChatColor.AQUA +"* Propriétaire = "+w.getOwner().getName(),ChatColor.AQUA + Advanced_warp.getInstance().language.getLanguageConfig().getString("message-owner"),ChatColor.BLUE+"   "+visiteur +" ",ChatColor.AQUA +Advanced_warp.getInstance().language.getLanguageConfig().getString("message-blacklist")+blacklist).asGuiItem(event -> {
                if(w.getBlackList().contains(p.getName()))
                {
                    p.sendMessage(ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("prefix")+Advanced_warp.getInstance().language.getLanguageConfig().getString("blacklist-message"));
@@ -159,7 +167,7 @@ public class WarpCommand extends BaseCommand {
             return;
         }
 
-        if(!(p.getWorld().getName().equalsIgnoreCase("world")|| p.getWorld().getName().equalsIgnoreCase("stratos")))
+        if(!Advanced_warp.getInstance().getConfig().getStringList("world").contains(p.getWorld().getName()))
         {
            // p.sendMessage(p.getWorld().getName());
             p.sendMessage(ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("prefix")+Advanced_warp.getInstance().language.getLanguageConfig().getString("error-world"));
@@ -187,18 +195,24 @@ public class WarpCommand extends BaseCommand {
     }
 
     @Subcommand("delete")
+    @Syntax("[warp]")
     @CommandPermission("advancedwarp.delete")
-    public void Delete_Command(CommandSender sender){
+    public void Delete_Command(CommandSender sender, String nomwarp){
 
         Player p = (Player) sender;
 
        ArrayList<Warp> delwarp = Warputils.getWarps(p.getUniqueId());
 
         for (Warp w : delwarp) {
-            w.delete();
+            if ( w.getName().equalsIgnoreCase(nomwarp) && (w.getOwner() == sender))
+            {
+                w.delete();
+                sender.sendMessage(ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("prefix")+Advanced_warp.getInstance().language.getLanguageConfig().getString("warp-deleted"));
+                return;
+            }
         }
 
-        sender.sendMessage(ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("prefix")+Advanced_warp.getInstance().language.getLanguageConfig().getString("warp-deleted"));
+        sender.sendMessage(ChatColor.RED+Advanced_warp.getInstance().language.getLanguageConfig().getString("prefix")+Advanced_warp.getInstance().language.getLanguageConfig().getString("error-warp-delete"));
 
     }
 

@@ -1,5 +1,16 @@
 prefix: "[SW-WARP]  "
 
+previous: "Précedent"
+
+next: "Suivant"
+
+nobody: "Personne"
+
+no-message: "Non"
+
+
+yes-message: "Oui"
+
 #Message à la creation du warp
 warp-created: "Votre warp a bien été créer"
 
@@ -11,6 +22,26 @@ blacklist-remove: " a été retiré de la Blacklist"
 
 blacklist-message: "Vous avez été blacklisté de ce warp, vous ne pouvez pas y accéder"
 
+confirm-create: "Etes vous sur de vouloir créer un warp pour 5000 éclats d'or ? (Oui/Non)"
+
+############################ Menu de warp
+
+menu-warp-name: "Menu des warps"
+
+name-howtocreate-warp: "Comment créer un warp ?"
+
+message-command-createwarp: "/warp create [nom]"
+
+message-price-createwarp: "(!) La création coute 5000 éclats d'or"
+
+count-visitors: " iéme visiteur"
+
+message-position: "* Position = "
+
+message-owner: "* Dernier visiteur : "
+
+message-blacklist:  "* Blacklisté : "
+
 ############################ Help
 
 line: "----------- SW-WARP -----------"
@@ -19,13 +50,13 @@ help-message: "/help - Permets de voir ce message"
 
 warp-create-message: "/warp create [nom] - Permets de créer un warp (5000 éclats d'or)"
 
-warp-add-blacklist: "/warp blacklist [nom] - Permets d'ajouter/retirer un joueur de la blacklist"
+warp-add-blacklist: "/warp blacklist [nom_warp] [nom_joueur] - Permets d'ajouter/retirer un joueur de la blacklist"
 
 warp-tp-message: "/warp [nom] - Permets de se téléporter au warp"
 
 warp-list-message: "/warp liste - Permets de voir la liste des warp"
 
-warp-delete-message: "/warp delete - Efface votre warp"
+warp-delete-message: "/warp delete [nom] - Efface votre warp"
 
 
 ############################ Erreurs
@@ -50,3 +81,7 @@ error-isconsole: "Commande dédiée aux joueurs"
 
 
 error-warp-already-exist: "Un warp existe déjà à ce nom"
+
+error-warp-delete: "Ce warp n'existe pas ou vous n'en n'êtes pas le propriétaire"
+
+error-blacklist-player: "Ce warp n'existe pas ou vous n'en n'êtes pas le propriétaire"

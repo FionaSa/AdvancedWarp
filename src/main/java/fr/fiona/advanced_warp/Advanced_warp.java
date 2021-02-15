@@ -26,9 +26,6 @@ public final class Advanced_warp extends JavaPlugin {
     public static PaperCommandManager manager;
 
 
-    public static Advanced_warp getInstance(){
-        return instance;
-    }
 
     @Override
     public void onEnable() {
@@ -63,6 +60,10 @@ public final class Advanced_warp extends JavaPlugin {
         manager.registerCommand((BaseCommand)new WarpsCommand());
 
         Bukkit.getConsoleSender().sendMessage("§b[AdvancedWarp] §2Loaded successful ");
+    }
+
+    public static Advanced_warp getInstance(){
+        return instance;
     }
 
     @Override

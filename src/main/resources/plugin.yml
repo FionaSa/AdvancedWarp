@@ -1,0 +1,12 @@
+name: Advanced_warp
+version: ${project.version}
+main: fr.fiona.advanced_warp.Advanced_warp
+api-version: 1.16
+depend: [Vault]
+permissions:
+  advancedwarp.create:
+    description: create a warp
+  advancedwarp.delete:
+    description: : delete a warp
+  advancedwarp.blacklist:
+    description:  blacklist a player from your warp
