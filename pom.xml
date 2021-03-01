@@ -48,6 +48,11 @@
                             <pattern>co.aikar.locales</pattern>
                             <shadedPattern>fr.fiona.advanced_warp.locales</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <!-- Replace this with your package! -->
+                            <shadedPattern>fr.fiona.advanced_warp</shadedPattern>
+                        </relocation>
                     </relocations>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                 </configuration>
@@ -95,6 +100,14 @@
     </repositories>
 
     <dependencies>
+        <!-- Bstat -->
+
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>2.2.1</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- Vault -->
         <dependency>
             <groupId>com.github.MilkBowl</groupId>

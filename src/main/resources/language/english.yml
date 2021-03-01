@@ -42,11 +42,17 @@ message-owner: "* Last visitor: "
 
 message-blacklist: "* Blacklisted : "
 
+someone-visited: "%s teleported to your warp"
+
+welcome-title: "Welcome!"
+
+welcome-subtitle: "You're at %s's warp"
+
 ############################ Help
 
 line: "----------- SW-WARP -----------"
 
-help-message: "/help - Allow to see this message"
+help-message: "/warp help - Allow to see this message"
 
 warp-create-message: "/warp create [name] - Allows to create a warp (5000 gold chips)"
 

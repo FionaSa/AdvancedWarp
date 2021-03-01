@@ -7,6 +7,6 @@ permissions:
   advancedwarp.create:
     description: create a warp
   advancedwarp.delete:
-    description: : delete a warp
+    description:  delete a warp
   advancedwarp.blacklist:
     description:  blacklist a player from your warp

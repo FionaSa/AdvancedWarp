@@ -42,11 +42,18 @@ message-owner: "* Dernier visiteur : "
 
 message-blacklist:  "* Blacklisté : "
 
+
+someone-visited: "%s s'est téléporté à votre warp"
+
+welcome-title: "Bienvenue!"
+
+welcome-subtitle: "Vous êtes au warp de %s"
+
 ############################ Help
 
 line: "----------- SW-WARP -----------"
 
-help-message: "/help - Permets de voir ce message"
+help-message: "/warp help - Permets de voir ce message"
 
 warp-create-message: "/warp create [nom] - Permets de créer un warp (5000 éclats d'or)"
 

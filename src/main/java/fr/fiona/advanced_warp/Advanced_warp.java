@@ -7,6 +7,7 @@ import net.milkbowl.vault.economy.Economy;
 import fr.fiona.advanced_warp.command.WarpCommand;
 import fr.fiona.advanced_warp.config.LanguageConfig;
 import fr.fiona.advanced_warp.utils.Warputils;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
@@ -40,7 +41,7 @@ public final class Advanced_warp extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage("§b[AdvancedWarp] §2Loading ..");
         instance = this;
-
+        Metrics metrics = new Metrics(this, 10343);
         //Charge les warps en mémoire
         Warputils.loadWarps();
 

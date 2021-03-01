@@ -11,6 +11,7 @@ import me.mattstudios.mfgui.gui.components.ItemBuilder;
 import me.mattstudios.mfgui.gui.guis.GuiItem;
 import me.mattstudios.mfgui.gui.guis.PaginatedGui;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -64,6 +65,13 @@ public class WarpsCommand extends BaseCommand{
                 w.addVisitor(p);
                 w.updateCountVisit();
                 p.teleport(w.getLocation());
+                try {
+                    Player owner = Bukkit.getPlayer(w.getOwner().getUniqueId());
+                    owner.sendMessage(ChatColor.AQUA + String.format(Advanced_warp.getInstance().language.getLanguageConfig().getString("prefix") + Advanced_warp.getInstance().language.getLanguageConfig().getString("someone-visited"), p.getName()));
+                }catch (NullPointerException e) {
+                        System.out.print("Player not online");
+                    }
+                p.sendTitle( Advanced_warp.getInstance().language.getLanguageConfig().getString("welcome-title"), String.format( Advanced_warp.getInstance().language.getLanguageConfig().getString("welcome-subtitle"),w.getOwner().getName()), 1, 30, 1);
 
             });
 
