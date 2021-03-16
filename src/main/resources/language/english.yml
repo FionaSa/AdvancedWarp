@@ -92,3 +92,6 @@ error-warp-delete: "This warp does not exist or you are not the owner"
 
 error-blacklist-player: "This warp does not exist or you are not the owner"
 
+confirm-change: "Are you sure you want to change your warp for 2500 gold coins? (Yes/No)"
+
+warp-changed: "The warp has been changed"

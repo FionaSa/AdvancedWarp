@@ -2,12 +2,14 @@
 ####Cout d'un warp
 warp-cost: 5000
 
+warp-cost-change: 2500
+
 language: "french"
 
 #Maximum de warps par personne
 max-warps: 1
 
-warp-name-regex: "[[a-zA-Z\\u00C0-\\u024F\\u1E00-\\u1EFF]|[0-9]]*"
+warp-name-regex: "[[a-zA-Z\\u00C0-\\u024F\\u1E00-\\u1EFF]|[0-9]|_]*"
 
 
 #### Nom des mondes où vous pouvez créer des warps

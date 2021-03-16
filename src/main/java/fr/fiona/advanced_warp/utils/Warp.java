@@ -30,6 +30,8 @@ public interface Warp {
 
     void addVisitor(Player p);
 
+    void setLocation(Location location);
+
     String getName();
 
     OfflinePlayer getOwner();

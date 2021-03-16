@@ -3,6 +3,7 @@ package fr.fiona.advanced_warp.command;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import fr.fiona.advanced_warp.Advanced_warp;
+import fr.fiona.advanced_warp.conversation.confirmchange;
 import fr.fiona.advanced_warp.conversation.confirmcreate;
 import fr.fiona.advanced_warp.utils.Warp;
 import fr.fiona.advanced_warp.utils.Warputils;
@@ -81,6 +82,28 @@ public class WarpCommand extends BaseCommand {
             }
         }
         sender.sendMessage(Advanced_warp.getInstance().language.getLanguageConfig().getString("error-blacklist-player"));
+
+    }
+
+    @Subcommand("change")
+    @Syntax("[warp]")
+    @CommandPermission("advancedwarp.blacklist")
+    public void Change_warp(CommandSender sender,String nomwarp){
+        Player p = (Player)sender;
+        for(Warp w:Warputils.warps){
+            if((w.getOwner() == p) && ( w.getName().equalsIgnoreCase(nomwarp)))
+            {
+                factory = factory
+                        .withFirstPrompt(new confirmchange(p,nomwarp))
+                        .withEscapeSequence("/exit")
+                        .withTimeout(10)
+                        .thatExcludesNonPlayersWithMessage("Go away evil console!");
+                factory.buildConversation((Conversable) p).begin();
+
+                return;
+            }
+        }
+
 
     }
 

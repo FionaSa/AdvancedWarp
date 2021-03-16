@@ -56,6 +56,17 @@ public class IWarp implements Warp {
         return this.texture;
     }
 
+    public void setLocation(Location location){
+        this.warpConfig.set("location.world",location.getWorld());
+        this.warpConfig.set("location.x",location.getBlockX());
+        this.warpConfig.set("location.y",location.getBlockY());
+        this.warpConfig.set("location.z",location.getBlockZ());
+
+        this.loc = location;
+        saveConfig();
+
+    }
+
     public void setTexture(String value) {
         this.warpConfig.set("texture", value);
         saveConfig();

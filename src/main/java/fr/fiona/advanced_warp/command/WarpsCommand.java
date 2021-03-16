@@ -23,6 +23,7 @@ public class WarpsCommand extends BaseCommand{
     @Default
     public void ListWarp(CommandSender sender) {
         Player p = (Player) sender;
+
         PaginatedGui gui = new PaginatedGui(6, Advanced_warp.getInstance().language.getLanguageConfig().getString("menu-warp-name") );
         gui.setItem(6, 3, ItemBuilder.from(Material.PAPER).setName(ChatColor.GREEN+Advanced_warp.getInstance().language.getLanguageConfig().getString("previous")).asGuiItem(event -> gui.previous()));
 
@@ -71,7 +72,7 @@ public class WarpsCommand extends BaseCommand{
                 }catch (NullPointerException e) {
                         System.out.print("Player not online");
                     }
-                p.sendTitle( Advanced_warp.getInstance().language.getLanguageConfig().getString("welcome-title"), String.format( Advanced_warp.getInstance().language.getLanguageConfig().getString("welcome-subtitle"),w.getOwner().getName()), 1, 30, 1);
+                p.sendTitle(ChatColor.AQUA +  Advanced_warp.getInstance().language.getLanguageConfig().getString("welcome-title"), String.format( Advanced_warp.getInstance().language.getLanguageConfig().getString("welcome-subtitle"),w.getOwner().getName()), 1, 30, 1);
 
             });
 
