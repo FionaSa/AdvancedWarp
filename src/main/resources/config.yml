@@ -4,6 +4,11 @@ warp-cost: 5000
 
 warp-cost-change: 2500
 
+
+#Delai lors de la téléportation ( en secondes ). 0 = aucun
+warp-delay: 1
+permission-bypass-delay: "advancedwarp.bypass.delay"
+
 language: "french"
 
 #Maximum de warps par personne

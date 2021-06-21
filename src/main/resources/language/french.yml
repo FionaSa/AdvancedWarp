@@ -97,3 +97,5 @@ error-blacklist-player: "Ce warp n'existe pas ou vous n'en n'êtes pas le propri
 confirm-change: "Ëtes vous sur de vouloir changer de place votre warp pour 2500 éclats d'or ? (Oui/Non)"
 
 warp-changed: "Le warp à bien été changé"
+
+warp-delay-message: "Téléportation dans %d secondes"

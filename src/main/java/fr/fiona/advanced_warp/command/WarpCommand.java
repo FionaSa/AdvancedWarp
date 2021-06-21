@@ -34,7 +34,7 @@ public class WarpCommand extends BaseCommand {
 
     Advanced_warp advancedWarp;
 
-    public WarpCommand(Advanced_warp advanced_warp){
+    public  WarpCommand(Advanced_warp advanced_warp){
         advancedWarp = advanced_warp;
         factory = new ConversationFactory(advanced_warp);
     }
@@ -55,7 +55,13 @@ public class WarpCommand extends BaseCommand {
               w.updateLastvisit();
               w.addVisitor(p);
               w.updateCountVisit();
-              p.teleport(w.getLocation());
+              if( (!p.hasPermission(Advanced_warp.getInstance().getConfig().getString("permission-bypass-delay") ) && ( Advanced_warp.getInstance().getConfig().getInt("warp-delay") > 0 ))){
+                  p.sendMessage(String.format(Advanced_warp.getInstance().language.getLanguageConfig().getString("warp-delay-message"),Advanced_warp.getInstance().getConfig().getInt("warp-delay")));
+                  Advanced_warp.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Advanced_warp.getInstance(), new Runnable() { public void run() { p.teleport(w.getLocation()); } }, 20 * Advanced_warp.getInstance().getConfig().getInt("warp-delay")); // 20 (one second in ticks) * 5 (seconds to wait)
+              }
+              else
+                p.teleport(w.getLocation());
+
               try {
                   Player owner = Bukkit.getPlayer(w.getOwner().getUniqueId());
                   owner.sendMessage(ChatColor.AQUA + String.format(Advanced_warp.getInstance().language.getLanguageConfig().getString("prefix") + Advanced_warp.getInstance().language.getLanguageConfig().getString("someone-visited"), p.getName()));

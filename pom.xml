@@ -6,7 +6,7 @@
 
     <groupId>fr.fiona</groupId>
     <artifactId>advanced_warp</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.4</version>
     <packaging>jar</packaging>
 
     <name>Advanced_warp</name>
