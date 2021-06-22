@@ -99,3 +99,7 @@ confirm-change: "Ëtes vous sur de vouloir changer de place votre warp pour 2500
 warp-changed: "Le warp à bien été changé"
 
 warp-delay-message: "Téléportation dans %d secondes"
+
+message-delete-blacklist: "Clique pour le supprimé de la blacklist"
+
+name-howtodelete-blacklist: "Comment supprimé le joueur de votre blacklist?"

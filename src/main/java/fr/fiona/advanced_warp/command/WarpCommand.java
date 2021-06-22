@@ -24,6 +24,7 @@ import org.bukkit.entity.Player;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @CommandAlias("swwarp|warp|advancedwarp")
@@ -79,15 +80,55 @@ public class WarpCommand extends BaseCommand {
     @CommandCompletion("@players")
     @CommandPermission("advancedwarp.blacklist")
     public void Blacklist_warp(CommandSender sender,String nomwarp,String name){
-        Player p = (Player)sender;
-        for(Warp w:Warputils.warps){
-            if((w.getOwner() == p) && ( w.getName().equalsIgnoreCase(nomwarp)))
-            {
-                w.addBlackList((Player)sender,name);
-                return;
+        if (name.equalsIgnoreCase("list"))
+        {
+            PaginatedGui gui = new PaginatedGui(6, Advanced_warp.getInstance().language.getLanguageConfig().getString("menu-warp-name") );
+            gui.setItem(6, 3, ItemBuilder.from(Material.PAPER).setName(ChatColor.GREEN+Advanced_warp.getInstance().language.getLanguageConfig().getString("previous")).asGuiItem(event -> gui.previous()));
+
+            gui.setItem(6, 1, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+            gui.setItem(6, 2, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+            gui.setItem(6, 5, ItemBuilder.from(Material.NETHER_STAR).setName(ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("name-howtodelete-blacklist")).setLore(ChatColor.AQUA+" ",ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("message-delete-blacklist")).asGuiItem());
+            gui.setItem(6, 4, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+            gui.setItem(6, 6, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+            gui.setItem(6, 8, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+            gui.setItem(6, 9, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+
+            gui.setItem(6, 7, ItemBuilder.from(Material.PAPER).setName(ChatColor.GREEN+Advanced_warp.getInstance().language.getLanguageConfig().getString("next")).asGuiItem(event -> gui.next()));
+            Player p = (Player) sender;
+            for (Warp w : Warputils.warps) {
+                if ((w.getOwner() == p) && (w.getName().equalsIgnoreCase(nomwarp))) {
+
+                    List<String> black_list = w.getBlackList();
+                    for (int i = 0; i < black_list.size(); i++) {
+
+
+                        int finalI = i;
+                        add = ItemBuilder.from(Material.PAPER).setName(ChatColor.BLUE +  black_list.get(finalI) ).setLore(ChatColor.AQUA + Advanced_warp.getInstance().language.getLanguageConfig().getString("message-delete-blacklist")).asGuiItem(event -> {
+                            w.addBlackList((Player) sender, black_list.get(finalI));
+                        });
+                        gui.addItem(add);
+
+
+                    }
+                }
             }
+            gui.setDefaultClickAction(event -> {
+                    event.setCancelled(true);
+                });
+            gui.open(p);
+
+
         }
-        sender.sendMessage(Advanced_warp.getInstance().language.getLanguageConfig().getString("error-blacklist-player"));
+        else {
+            Player p = (Player) sender;
+            for (Warp w : Warputils.warps) {
+                if ((w.getOwner() == p) && (w.getName().equalsIgnoreCase(nomwarp))) {
+                    w.addBlackList((Player) sender, name);
+                    return;
+                }
+            }
+            sender.sendMessage(Advanced_warp.getInstance().language.getLanguageConfig().getString("error-blacklist-player"));
+        }
 
     }
 

@@ -97,3 +97,7 @@ confirm-change: "Are you sure you want to change your warp for 2500 gold coins? 
 warp-changed: "The warp has been changed"
 
 warp-delay-message: "Teleportation in %d seconds"
+
+message-delete-blacklist: "Click to delete the player from the blacklist"
+
+name-howtodelete-blacklist: "How to remove the player from your blacklist?"
