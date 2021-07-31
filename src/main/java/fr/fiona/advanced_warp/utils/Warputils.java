@@ -22,7 +22,7 @@ public class Warputils {
 
     }
 
-    public static void CreateWarp(Player p, String name){
+    public static void CreateWarp(Player p, String name, String category){
         File ConfigFile = new File(Advanced_warp.getInstance().getDataFolder() + "/warps", name + ".yml");
         FileConfiguration warp = getWarp(name + ".yml");
         warp.set("location.world", p.getLocation().getWorld().getName());
@@ -37,6 +37,7 @@ public class Warputils {
         warp.set("last-visit", Long.valueOf(System.currentTimeMillis()));
         warp.set("countvisitors",0);
         warp.set("blacklist", new ArrayList());
+        warp.set("category",category);
 
         try {
             warp.save(ConfigFile);

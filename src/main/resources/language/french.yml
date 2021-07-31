@@ -103,3 +103,7 @@ warp-delay-message: "Téléportation dans %d secondes"
 message-delete-blacklist: "Clique pour le supprimé de la blacklist"
 
 name-howtodelete-blacklist: "Comment supprimé le joueur de votre blacklist?"
+
+teleportation-console-message: "%1$s s'est téléporté au warp %2$s " #1 = joueur téléporté , 2 = nom du warp
+
+choose-category: "Catégorie de votre warp"

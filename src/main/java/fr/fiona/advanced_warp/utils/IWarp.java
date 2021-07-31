@@ -35,6 +35,7 @@ public class IWarp implements Warp {
 
     private String texture;
 
+    private String category;
 
 
     public List<String> getVisitors() {
@@ -67,6 +68,13 @@ public class IWarp implements Warp {
 
     }
 
+    public void setCategory(String value)
+    {
+        this.warpConfig.set("category",value);
+    }
+
+
+
     public void setTexture(String value) {
         this.warpConfig.set("texture", value);
         saveConfig();
@@ -79,6 +87,11 @@ public class IWarp implements Warp {
 
     @Override
     public int getCountVisit(){ return countVisit; }
+
+    @Override
+    public int compareTo(Warp w) {
+        return 0;
+    }
 
     @Override
     public void updateCountVisit() {
@@ -183,7 +196,11 @@ public class IWarp implements Warp {
 
         this.blackList = config.getStringList("blacklist");
 
+        this.category = config.getString("category");
+
     }
+
+
 
     public static Warp getWarp(String name) {
         return new IWarp(name);
@@ -198,4 +215,31 @@ public class IWarp implements Warp {
         }
         warpFile.delete();
     }
+
+   /* public int compareTo(Warp w) {
+        if (getCategory() == null || w.getCategory() == null) {
+            return 0;
+        }
+        return getCategory().compareTo(w.getCategory());
+    }*/
+
+   public  String getCategory(){
+       return category;
+   }
+
+   /* public static Comparator<Warp> Warpbuild = new Comparator<Warp>() {
+
+
+        public int compare(Warp w1, Warp w2) {
+
+            int category1 = s1.getRollno();
+            int category2 = s2.getRollno();
+
+            /*For ascending order*/
+          //  return rollno1-rollno2;
+
+            /*For descending order*/
+            //rollno2-rollno1;
+       // }};*/
+
 }

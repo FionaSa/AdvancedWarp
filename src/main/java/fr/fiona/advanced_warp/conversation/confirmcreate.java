@@ -12,11 +12,13 @@ public class confirmcreate extends StringPrompt {
 
     Player player;
     String name;
+    String category;
 
-    public confirmcreate(Player player,String name) {
+    public confirmcreate(Player player, String name, String category) {
       //  player.sendRawMessage("test");
         this.player = player;
         this.name = name;
+        this.category = category;
       //  player.sendRawMessage("test2");
     }
 
@@ -31,7 +33,7 @@ public class confirmcreate extends StringPrompt {
         if(input.equalsIgnoreCase(Advanced_warp.getInstance().language.getLanguageConfig().getString("yes-message")))
         {
 
-            Warputils.CreateWarp(player,name);
+            Warputils.CreateWarp(player,name,category);
 
             Advanced_warp.getEconomy().withdrawPlayer(player, Advanced_warp.getInstance().getConfig().getInt("warp-cost"));
 

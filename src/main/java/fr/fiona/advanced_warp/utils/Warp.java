@@ -18,7 +18,9 @@ public interface Warp {
     Long getLastvisit();
 
     Long getTimecreated();
-    
+
+
+    String getCategory();
     
     String getTexture();
 
@@ -39,4 +41,13 @@ public interface Warp {
     void delete();
 
     int getCountVisit();
+
+    public int compareTo(Warp w);
+
+
+    static String getWarpCategory(Warp warp) {
+        return warp.getCategory();
+    }
+
+    public void setCategory(String value);
 }

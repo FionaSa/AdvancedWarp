@@ -8,6 +8,7 @@ import fr.fiona.advanced_warp.conversation.confirmcreate;
 import fr.fiona.advanced_warp.utils.Warp;
 import fr.fiona.advanced_warp.utils.Warputils;
 import me.mattstudios.mfgui.gui.components.ItemBuilder;
+import me.mattstudios.mfgui.gui.guis.Gui;
 import me.mattstudios.mfgui.gui.guis.GuiItem;
 import me.mattstudios.mfgui.gui.guis.PaginatedGui;
 import net.md_5.bungee.api.ChatColor;
@@ -21,6 +22,7 @@ import org.bukkit.conversations.Conversable;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,6 +58,7 @@ public class WarpCommand extends BaseCommand {
               w.updateLastvisit();
               w.addVisitor(p);
               w.updateCountVisit();
+              Bukkit.getConsoleSender().sendMessage(Advanced_warp.getInstance().language.getLanguageConfig().getString("prefix") +String.format(Advanced_warp.getInstance().language.getLanguageConfig().getString("teleportation-console-message"),p.getName(),w.getName()));
               if( (!p.hasPermission(Advanced_warp.getInstance().getConfig().getString("permission-bypass-delay") ) && ( Advanced_warp.getInstance().getConfig().getInt("warp-delay") > 0 ))){
                   p.sendMessage(String.format(Advanced_warp.getInstance().language.getLanguageConfig().getString("warp-delay-message"),Advanced_warp.getInstance().getConfig().getInt("warp-delay")));
                   Advanced_warp.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(Advanced_warp.getInstance(), new Runnable() { public void run() { p.teleport(w.getLocation()); } }, 20 * Advanced_warp.getInstance().getConfig().getInt("warp-delay")); // 20 (one second in ticks) * 5 (seconds to wait)
@@ -270,17 +273,52 @@ public class WarpCommand extends BaseCommand {
             return;
         }
 
+        Gui gui = new Gui(1, Advanced_warp.getInstance().language.getLanguageConfig().getString("choose-category") );
 
 
-        factory = factory
-                .withFirstPrompt(new confirmcreate(p,name))
-                .withEscapeSequence("/exit")
-                .withTimeout(10)
-                .thatExcludesNonPlayersWithMessage("Go away evil console!");
-        factory.buildConversation((Conversable) p).begin();
+        gui.setItem(1, 4, ItemBuilder.from(Material.DIRT).setName("BUILD").asGuiItem(event -> {
+            factory = factory
+                    .withFirstPrompt(new confirmcreate(p,name,"build"))
+                    .withEscapeSequence("/exit")
+                    .withTimeout(10)
+                    .thatExcludesNonPlayersWithMessage("Go away evil console!");
+            factory.buildConversation((Conversable) p).begin();
+            gui.close(p);
+                }));
 
+        gui.setItem(1, 5, ItemBuilder.from(Material.WHEAT).setName("FARM").asGuiItem(event -> {
+            factory = factory
+                    .withFirstPrompt(new confirmcreate(p,name,"farm"))
+                    .withEscapeSequence("/exit")
+                    .withTimeout(10)
+                    .thatExcludesNonPlayersWithMessage("Go away evil console!");
+            factory.buildConversation((Conversable) p).begin();
+            gui.close(p);
+        }));
+        gui.setItem(1, 6, ItemBuilder.from(Material.FISHING_ROD).setName("SHOP").asGuiItem(event -> {
+            factory = factory
+                    .withFirstPrompt(new confirmcreate(p,name,"shop"))
+                    .withEscapeSequence("/exit")
+                    .withTimeout(10)
+                    .thatExcludesNonPlayersWithMessage("Go away evil console!");
+            factory.buildConversation((Conversable) p).begin();
+            gui.close(p);
+        }));
 
+        gui.setItem(1, 7, ItemBuilder.from(Material.PAPER).setName("AUTRE").asGuiItem(event -> {
+            factory = factory
+                    .withFirstPrompt(new confirmcreate(p,name,"autre"))
+                    .withEscapeSequence("/exit")
+                    .withTimeout(10)
+                    .thatExcludesNonPlayersWithMessage("Go away evil console!");
+            factory.buildConversation((Conversable) p).begin();
+            gui.close(p);
+        }));
 
+        gui.setDefaultClickAction(event -> {
+            event.setCancelled(true);
+        });
+        gui.open(p);
 
     }
 
@@ -307,14 +345,55 @@ public class WarpCommand extends BaseCommand {
     }
 
 
-  static FileConfiguration getWarp(String name) {
-    File file = new File(Advanced_warp.getInstance().getDataFolder() + "/warps", name);
-    YamlConfiguration yamlConfiguration = new YamlConfiguration();
-    try {
-        yamlConfiguration.load(file);
-    } catch (IOException | org.bukkit.configuration.InvalidConfigurationException iOException) {}
-    return (FileConfiguration)yamlConfiguration;
-}
+
+
+    @Subcommand("info")
+    @Syntax("[warp]")
+    @CommandPermission("advancedwarp.info")
+    public void Info_Command(CommandSender sender, String nomwarp){
+
+        Player p = (Player) sender;
+
+        ArrayList<Warp> delwarp = Warputils.getWarps(p.getUniqueId());
+
+        for (Warp w : delwarp) {
+            if ( w.getName().equalsIgnoreCase(nomwarp) && (w.getOwner() == sender))
+            {
+                PaginatedGui gui = new PaginatedGui(6, Advanced_warp.getInstance().language.getLanguageConfig().getString("menu-warp-name") );
+                gui.setItem(6, 3, ItemBuilder.from(Material.PAPER).setName(ChatColor.GREEN+Advanced_warp.getInstance().language.getLanguageConfig().getString("previous")).asGuiItem(event -> gui.previous()));
+
+                gui.setItem(6, 1, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+                gui.setItem(6, 2, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+                gui.setItem(6, 5, ItemBuilder.from(Material.NETHER_STAR).setName(ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("name-howtocreate-warp")).setLore(ChatColor.AQUA+" ",ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("message-command-createwarp")," ",ChatColor.RED+Advanced_warp.getInstance().language.getLanguageConfig().getString("message-price-createwarp")).asGuiItem());
+                gui.setItem(6, 4, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+                gui.setItem(6, 6, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+                gui.setItem(6, 8, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+
+                gui.setItem(3, 3, ItemBuilder.from(Material.SPAWNER).setName("CHANGER CATEGORIE EN FARM").asGuiItem(event -> {
+                    w.setCategory("farm");
+                }));
+                gui.setItem(3, 4, ItemBuilder.from(Material.TROPICAL_FISH).setName("CHANGER CATEGORIE EN SHOP").asGuiItem(event -> {
+                    w.setCategory("shop");
+                }));
+                gui.setItem(3, 5, ItemBuilder.from(Material.DIAMOND_PICKAXE).setName("CHANGER CATEGORIE EN BUILD").asGuiItem(event -> {
+                    w.setCategory("build");
+                }));
+
+                gui.setItem(6, 9, ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).setName(" ").asGuiItem());
+
+                gui.setItem(6, 7, ItemBuilder.from(Material.PAPER).setName(ChatColor.GREEN+Advanced_warp.getInstance().language.getLanguageConfig().getString("next")).asGuiItem(event -> gui.next()));
+                gui.setDefaultClickAction(event -> {
+                    event.setCancelled(true);
+                });
+                gui.open(p);
+                return;
+            }
+        }
+
+
+    }
+
+
 
     @HelpCommand
     public void Help_Command(CommandSender sender){
