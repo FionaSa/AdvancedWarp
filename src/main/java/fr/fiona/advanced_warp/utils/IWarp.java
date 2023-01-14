@@ -6,6 +6,7 @@ import java.util.*;
 
 import fr.fiona.advanced_warp.Advanced_warp;
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -58,7 +59,7 @@ public class IWarp implements Warp {
     }
 
     public void setLocation(Location location){
-        this.warpConfig.set("location.world",location.getWorld());
+        this.warpConfig.set("location.world",location.getWorld().getName());
         this.warpConfig.set("location.x",location.getBlockX());
         this.warpConfig.set("location.y",location.getBlockY());
         this.warpConfig.set("location.z",location.getBlockZ());
@@ -103,10 +104,7 @@ public class IWarp implements Warp {
     public void addVisitor(Player p) {
         //if (!this.visitors.contains(p.getName())) {
 
-            if(this.visitors.isEmpty())
-                this.visitors.add(0,p.getName());
-            else
-                this.visitors.add(p.getName());
+                this.visitors.set(0,p.getName());
 
 
             this.warpConfig.set("visitors", this.visitors);
@@ -224,7 +222,10 @@ public class IWarp implements Warp {
     }*/
 
    public  String getCategory(){
-       return category;
+       if (Objects.isNull(category))
+           return "build";
+           else
+               return category;
    }
 
    /* public static Comparator<Warp> Warpbuild = new Comparator<Warp>() {

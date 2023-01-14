@@ -19,6 +19,11 @@ public class Warputils {
     private static Advanced_warp instance = Advanced_warp.getInstance();
 
     public static void DeleteWarp(Player p, String name){
+        if(warps.contains(name))
+            warps.remove(name);
+        File warpFile = new File(Advanced_warp.getInstance().getDataFolder() + "/warps", name + ".yml");
+
+        warpFile.delete();
 
     }
 
@@ -91,15 +96,6 @@ public class Warputils {
                 warpS.add(w);
         }
         return warpS;
-    }
-
-    public static ArrayList<Warp> getWarps(OfflinePlayer p) {
-        ArrayList<Warp> warps = new ArrayList<>();
-        for (Warp w : warps) {
-            if (w.getOwner().getUniqueId().equals(p.getUniqueId()))
-                warps.add(w);
-        }
-        return warps;
     }
 
     public static ArrayList<OfflinePlayer> getWarpUsers() {
