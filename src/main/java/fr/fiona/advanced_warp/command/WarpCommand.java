@@ -21,6 +21,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.conversations.Conversable;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 
 import java.awt.*;
 import java.io.File;
@@ -247,8 +249,17 @@ public class WarpCommand extends BaseCommand {
             sender.sendMessage(ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("prefix")+Advanced_warp.getInstance().language.getLanguageConfig().getString("error-name-length"));
             return ;
         }
+            Integer maxwarp = -1;
 
-        if (Warputils.getWarps(p.getUniqueId()).size() >= Advanced_warp.getInstance().getConfig().getInt("max-warps"))
+            for (PermissionAttachmentInfo permission : p.getEffectivePermissions()) {
+                if ((permission.getPermission().startsWith("advancedwarp.maxwarp.")) && (permission.getValue())) {
+                    maxwarp = Math.max(maxclaim,Integer.parseInt(permission.getPermission().replace("advancedwarp.maxwarp.", "")));
+
+                }
+            }
+            if(maxclaim == -1)
+                maxwarp = Advanced_warp.getInstance().getConfig().getInt("max-warps");
+        if (Warputils.getWarps(p.getUniqueId()).size() >= maxwarp)
         {
             sender.sendMessage(ChatColor.AQUA+Advanced_warp.getInstance().language.getLanguageConfig().getString("prefix")+Advanced_warp.getInstance().language.getLanguageConfig().getString("error-max-warp"));
             return ;
